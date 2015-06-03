@@ -1,0 +1,15 @@
+<!--meta http-equiv="refresh" content="0; url=/new-shop"-->
+<script name="endless scrolling" author="cregox.com">
+  if (location.pathname == '/shop')
+  {
+//    location.replace("/new-shop");
+  }
+  Y.use('node', function()
+  {
+    Y.on('domready', function()
+    {
+      var pageId = window.location.href.split('/').pop();
+      Y.all('a[href$="/shop/"]').set('href', '/new-shop/#p@' + pageId);
+    });
+  });
+</script>

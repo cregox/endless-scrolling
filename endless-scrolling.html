@@ -1,0 +1,85 @@
+<script src="https://cdn.rawgit.com/cregox/endless-scrolling/1.0/endless-scrolling.min.js"></script>
+
+<style name="endless scrolling" author="cregox.com">
+  .summary-item-list {
+    display: none;
+  }
+</style>
+<script name="endless scrolling" author="cregox.com">
+  Y.use('node', function()
+  {
+    Y.on('domready', function()
+    {
+      // enable Custom CSS to work on editor
+      Y.one('main#main').addClass('endless-scrolling');
+
+      // prevent script from running in squarespace editor
+      if (window.top.document !== window.document)
+      {
+        // with style, prevented summary to appear
+        Y.one('main#main .summary-item-list').setStyle('display', 'block');
+        return;
+      }
+    
+      Y.one('footer#footer').hide().setStyles({
+        'position': 'absolute',
+        'bottom': 0,
+        'left': '50px',
+        'right': '50px'
+      });
+
+      // settings
+      endlessScrolling({
+        'ajaxString': '/shop?format=json',
+        'loadingMargin': 500,
+        'container': 'main#main .wrapper',
+        'list': '.summary-item-list',
+        'item': '.summary-item',
+        'onComplete': setMouseHover,
+        'jsonAjax': jsonAjax
+      });
+
+      function jsonAjax (ajaxString, callback)
+      {
+        var json;
+        Y.io(ajaxString, {
+          on: {
+            success: function (x, o) {
+              try {
+                json = Y.JSON.parse(o.responseText);
+              } catch (e) {
+                console.log("JSON Parse failed!");
+                return;
+              }
+
+              // when done loading json
+              callback(json);
+            }
+          }
+        });
+      } // function cacheAjaxRequest
+
+      // make it look like the original shop
+      function setMouseHover ()
+      {
+        var Ynode = Y.all('main#main .wrapper div .summary-item a img');
+        Ynode.on('mouseenter', function(e)
+        {
+          e.currentTarget.transition(
+            {
+              duration:0.5,
+              opacity:0.5
+            });
+        });
+        Ynode.on('mouseleave', function(e)
+        {
+          e.currentTarget.transition(
+            {
+              duration:0.5,
+              opacity:1
+            });
+        });
+      } // function setMouseHover
+    })
+  });
+</script>

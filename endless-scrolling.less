@@ -1,0 +1,71 @@
+// endless scrolling by cregox.com
+body main#main {
+  width: ~'calc(100% - 240px)';
+}
+
+main#main.endless-scrolling {
+  // while there's no proper function to go back to a specific item
+  // this should let the browser do the trick
+  a[href^="javascript:endlessScrollingLoading"] div.image-block-wrapper {
+    height: 99999px;
+    img {
+      height: initial !important; // just for the editor
+    }
+  }
+  .endless-loading {
+    position: initial;
+    width: initial;
+    height: initial;
+    top: initial;
+    bottom: initial;
+    left: initial;
+    right: initial;
+    &.fixed {
+      position: fixed;
+      top: 50%;
+      bottom: 50%;
+      left: 50%;
+      right: 50%;
+    }
+  }
+  .summary-item {
+    margin: 0 !important;
+    width: ~'calc(33.33% - 10px)' !important; // 3 columns
+    @media screen {
+      @media (max-width: 880px) { // switch
+        width: ~'calc(50% - 8px)' !important; // 2 columns
+      }
+      @media (max-width: 550px) { //switch
+        width: 100% !important; // 1 column
+      }
+    }
+    &.invisible {
+      visibility: hidden;
+    }
+  }
+  .summary-thumbnail.img-wrapper {
+    padding-bottom: 0 !important;
+    img {
+      background-color: rgba(17,17,17,.05);
+      position: initial !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+  }
+  .summary-price .product-price {
+    position: absolute;
+    bottom: 1em;
+    right: 0;
+    padding: 1em;
+    span {
+      font-size: 1em;
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+    div.wrapper>div {
+      padding-top: 2em;
+      height: 100%;
+    }
+  }
+}
