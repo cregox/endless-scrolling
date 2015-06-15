@@ -10,6 +10,12 @@
   {
     Y.on('domready', function()
     {
+      // main settings
+      // change this to the correspondent URL Slug
+      var shopAjax = '/shop';
+  
+      //////////////////
+
       // enable Custom CSS to work on editor
       Y.one('main#main').addClass('endless-scrolling');
 
@@ -30,7 +36,7 @@
 
       // settings
       endlessScrolling({
-        'ajaxString': '/shop?format=json',
+        'ajaxString': shopAjax + '?format=json',
         'loadingMargin': 500,
         'container': 'main#main .wrapper',
         'list': '.summary-item-list',

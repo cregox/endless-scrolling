@@ -1,15 +1,22 @@
-<!--meta http-equiv="refresh" content="0; url=/new-shop"-->
+<!--meta http-equiv="refresh" content="0; url=/shop-list"-->
 <script name="endless scrolling" author="cregox.com">
-  if (location.pathname == '/shop')
+  // main settings 
+  // change this to the correspondent URL Slug
+  var shopList = '/shop-list';
+  
+  //////////////////
+  
+  var thisPage = Static.SQUARESPACE_CONTEXT.collection.fullUrl;
+  if (location.pathname +'/' === thisPage)
   {
-//    location.replace("/new-shop");
+    location.replace(shopList);
   }
   Y.use('node', function()
   {
     Y.on('domready', function()
     {
       var pageId = window.location.href.split('/').pop();
-      Y.all('a[href$="/shop/"]').set('href', '/new-shop/#p@' + pageId);
+      Y.all('a[href$="'+ thisPage +'"]').set('href', shopList + '/#p@' + pageId);
     });
   });
 </script>
